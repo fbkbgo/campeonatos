@@ -9,7 +9,7 @@
 
 # Bugs
 
-* Campeonatos que tenham como primero critério de desempate "confrontos direto" não funcionarão corretamente;
+* Campeonatos que tenham como primeiro critério de desempate "confrontos direto" não funcionarão corretamente;
 
 # Instalação
 
