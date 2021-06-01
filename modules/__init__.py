@@ -57,41 +57,69 @@ def tabela(campeonato, ano, caminho_rodada, equipes_participantes, qnt_rodadas,
             rodada = int(r)
 
             # Cabeçalho da tabela
-            print('*' * 73)
-            print('*', f'\033[1;32m{campeonato} {ano} \033[33m({rodada - 1}ª Rodada)\033[m'.center(83), ' *')
+            print('*' * 75)
+            print('*', f'\033[1;32m{campeonato} {ano} \033[33m({rodada - 1}ª Rodada)\033[m'.center(85), ' *')
             if turno:
-                print('*', f'\033[1;32m{turno_n}\033[m'.center(79), '*')
+                print('*', f'\033[1;32m{turno_n}\033[m'.center(81), '*')
             else:
-                print('*', ' '.center(69), '*')
-            print('*\033[0m' * 73)
-            print('\033[0m*|\033[m', '\033[1;33mPº|'.rjust(1), 'Equipes'.center(12), '|'.center(3), 'J'.center(1),
+                print('*', ' '.center(71), '*')
+            print('*\033[0m' * 75)
+            print('\033[0m*|\033[m', '\033[1;33mPº|'.rjust(1), 'Equipes'.center(14), '|'.center(3), 'J'.center(1),
                   '|'.center(3), 'P'.center(1), '|'.center(3), 'V'.center(1), '|'.center(3), 'D'.center(1),
                   '|'.center(3), 'E'.center(1), ' |'.center(2), 'SG'.center(3), ' |'.center(2), 'GP'.center(3),
                   ' |'.center(2), 'GC', ' |\033[m*')
-            print('\033[4m*\033[m' * 73)
+            print('\033[4m*\033[m' * 75)
             # Corpo da tabela
-            for c, lin in enumerate(result):
-                print((f'*|\033[1;33m {str(c + 1).center(2)}-\033[m' if (c + 1) < 10 else
-                       f'*|\033[1;33m{str(c + 1).ljust(1)} -\033[m'),
-                      (lin[0].center(13) if (12 < (c + 1) < 4) and c != 1 else
-                       (f'\033[32m{lin[0].center(13)}\033[m' if 1 != (c + 1) <= 4 else
-                        f'\033[31m{lin[0].center(13)}\033[m' if (c + 1) > len(equipes_participantes) - rebaixados else
-                        f'\033[33m{lin[0].center(13)}\033[m' if (c + 1) == 1 and rodada == 12 else
-                        f'\033[32m{lin[0].center(13)}\033[m' if (c + 1) == 1 else lin[0].center(13))),
-                      '\033[4m|'.center(3), str(lin[1]).center(1),
-                      ' |'.center(3) if int(lin[1]) < 10 else ' |'.center(2), str(lin[2]).center(1),
-                      ' |'.center(3) if int(lin[2]) < 10 else ' |'.center(2), str(lin[3]).center(1),
-                      ' |'.center(3) if int(lin[3]) < 10 else ' |'.center(2), str(lin[4]).center(1),
-                      ' |'.center(3) if int(lin[4]) < 10 else ' |'.center(2), str(lin[5]).center(1),
-                      ' |'.center(3) if int(lin[5]) < 10 else ' |'.center(2), str(lin[6]).center(2),
-                      ' |'.center(3) if int(lin[6]) < 10 else ' |'.center(2), str(lin[7]).center(2),
-                      ' |'.center(3) if int(lin[7]) < 10 else ' |'.center(2), str(lin[8]).center(3), '|*\033[m')
-            # Rodapé da tabela
-            print('*' * 73)
-            print('*', '\033[7;33m  \033[m - Campeão              *')
-            print('*', '\033[7;32m  \033[m - Classificados        *')
-            print('*', '\033[7;31m  \033[m - Zona de rebaixamento *')
-            print('*' * 29)
+            if campeonato == 'Brasileirão':
+                for c, lin in enumerate(result):
+                    print((f'*|\033[1;33m {str(c + 1).center(2)}-\033[m' if (c + 1) < 10 else
+                           f'*|\033[1;33m{str(c + 1).ljust(1)} -\033[m'),
+                          (f'\033[32m{lin[0].center(15)}\033[m' if 1 != (c + 1) <= 4 else
+                           f'\033[36m{lin[0].center(15)}\033[m' if 4 < (c + 1) <= 6 else
+                           f'\033[33m{lin[0].center(15)}\033[m' if 6 < (c + 1) <= 12 else
+                           f'\033[1;31m{lin[0].center(15)}\033[m' if (c + 1) > len(
+                               equipes_participantes) - rebaixados else
+                           f'\033[1;32m{lin[0].center(15)}\033[m' if (c + 1) == 1 and rodada == qnt_rodadas else
+                           f'\033[32m{lin[0].center(15)}\033[m' if (c + 1) == 1 else lin[0].center(15)),
+                          '\033[4m|'.center(3), str(lin[1]).center(1),
+                          ' |'.center(3) if int(lin[1]) < 10 else ' |'.center(2), str(lin[2]).center(1),
+                          ' |'.center(3) if int(lin[2]) < 10 else ' |'.center(2), str(lin[3]).center(1),
+                          ' |'.center(3) if int(lin[3]) < 10 else ' |'.center(2), str(lin[4]).center(1),
+                          ' |'.center(3) if int(lin[4]) < 10 else ' |'.center(2), str(lin[5]).center(1),
+                          ' |'.center(3) if int(lin[5]) < 10 else ' |'.center(2), str(lin[6]).center(2),
+                          ' |'.center(3) if int(lin[6]) < 10 else ' |'.center(2), str(lin[7]).center(2),
+                          ' |'.center(3) if int(lin[7]) < 10 else ' |'.center(2), str(lin[8]).center(3), '|*\033[m')
+
+                # Rodapé da tabela
+                print('*' * 75)
+                print('*', '\033[1;7;32m  \033[m - Campeão              *')
+                print('*', '\033[7;32m  \033[m - Libertadores         *')
+                print('*', '\033[7;36m  \033[m - Pré-Libertadores     *')
+                print('*', '\033[7;33m  \033[m - Sulamericana         *')
+                print('*', '\033[7;31m  \033[m - Zona de rebaixamento *')
+                print('*' * 29)
+            else:
+                for c, lin in enumerate(result):
+                    print((f'*|\033[1;33m {str(c + 1).center(2)}-\033[m' if (c + 1) < 10 else
+                           f'*|\033[1;33m{str(c + 1).ljust(1)} -\033[m'),
+                          (f'\033[32m{lin[0].center(15)}\033[m' if 1 != (c + 1) <= 4 else
+                           f'\033[31m{lin[0].center(15)}\033[m' if (c + 1) > len(equipes_participantes) - rebaixados
+                           else f'\033[33m{lin[0].center(15)}\033[m' if (c + 1) == 1 and rodada == qnt_rodadas else
+                           f'\033[32m{lin[0].center(15)}\033[m' if (c + 1) == 1 else lin[0].center(15)),
+                          '\033[4m|'.center(3), str(lin[1]).center(1),
+                          ' |'.center(3) if int(lin[1]) < 10 else ' |'.center(2), str(lin[2]).center(1),
+                          ' |'.center(3) if int(lin[2]) < 10 else ' |'.center(2), str(lin[3]).center(1),
+                          ' |'.center(3) if int(lin[3]) < 10 else ' |'.center(2), str(lin[4]).center(1),
+                          ' |'.center(3) if int(lin[4]) < 10 else ' |'.center(2), str(lin[5]).center(1),
+                          ' |'.center(3) if int(lin[5]) < 10 else ' |'.center(2), str(lin[6]).center(2),
+                          ' |'.center(3) if int(lin[6]) < 10 else ' |'.center(2), str(lin[7]).center(2),
+                          ' |'.center(3) if int(lin[7]) < 10 else ' |'.center(2), str(lin[8]).center(3), '|*\033[m')
+                # Rodapé da tabela
+                print('*' * 75)
+                print('*', '\033[7;33m  \033[m - Campeão              *')
+                print('*', '\033[7;32m  \033[m - Classificados        *')
+                print('*', '\033[7;31m  \033[m - Zona de rebaixamento *')
+                print('*' * 29)
             print()
             # Infos adicionais ao fim do campeonato
             if rodada == qnt_rodadas + 1:  # Imprimindo o CAMPEÃO
@@ -191,13 +219,13 @@ def dados(equipes_participantes, campeonato, caminho_rodada, caminho_partidas, q
             while True:  # Partida
                 print()
                 print('-' * 50)
-                print(f'\033[32m{partida}ª partida da {rodada}ª rodada\033[m'.center(44))
+                print(f'\033[32m{partida}ª partida da {rodada}ª rodada\033[m'.center(56))
 
                 if os.path.isfile(campeonato + '/jogos.txt'):
                     with open(campeonato + '/jogos.txt') as a:
                         partidas = a.read().splitlines()
                         print('-' * 50)
-                        print(f'\033[1mJOGOS REALIZADOS NA {rodada}ª RODADA\033[m'.center(44))
+                        print(f'\033[1mJOGOS REALIZADOS NA {rodada}ª RODADA\033[m'.center(56))
                         print('*' * 50)
                         for c, time in enumerate(partidas):
                             if '-' in time:
@@ -542,7 +570,7 @@ def dados(equipes_participantes, campeonato, caminho_rodada, caminho_partidas, q
             conn1 = sqlite3.connect(f"{campeonato}/jogos_realizados.db")  # Salvando os jogos realizados
             cursor1 = conn1.cursor()
             cursor1.execute(f'''CREATE TABLE IF NOT EXISTS Rodada{rodada}
-                    (Partidas STRING PRIMARY KEY,
+                    (Partidas PRIMARY KEY,
                     Mandantes VARCHAR(20),
                     GC VARCHAR(2),
                     Vs VARCHAR(1),
@@ -738,7 +766,7 @@ def jogos_realizados(campeonato, rodada, r, p):
         if rodada == '':
             rd = 1  # Primeira rodada
             for rdd in range(rd, r if p == 1 else r+1):  # rdd: Rodada
-                cursor.execute(f'SELECT * FROM Rodada{rdd} ORDER BY Partidas ASC')
+                cursor.execute(f'SELECT * FROM Rodada{rdd}')
                 jogos = cursor.fetchall()
                 for jogo in jogos:
                     for results in jogo:
@@ -748,7 +776,7 @@ def jogos_realizados(campeonato, rodada, r, p):
                               else str(results).center(2), end='')
                     print()
         else:
-            cursor.execute(f'SELECT * FROM Rodada{rodada} ORDER BY Partidas ASC')
+            cursor.execute(f'SELECT * FROM Rodada{rodada}')
             jogos = cursor.fetchall()
             for jogo in jogos:
                 for results in jogo:
