@@ -270,14 +270,30 @@ def dados(equipes_participantes, campeonato, caminho_rodada, caminho_partidas, q
                         except Exception as erro:
                             print(f'Algo ocorreu de errado: {erro}')
                         else:
-                            break
+                            if time_casa in equipes_participantes  and time_casa not in jogados:
+                                break
+                            print(f'\033[31mERRO: {time_casa}\033[m')
+                            print(
+                                f"\033[31mA equipe não participa do {campeonato} \n{ano} ou"
+                                f"já jogou na rodada.\nTente novamente!\033[m\n")
                     while True:
                         try:
                             time_fora = input('Time visitante: ').title().strip()
                         except Exception as erro:
                             print(f'Algo ocorreu de errado: {erro}')
                         else:
+                            if time_fora in equipes_participantes and time_fora not in jogados:
+                                break
+                            print(f'\033[31mERRO: {time_fora}\033[m')
+                            print(
+                                f"\033[31mA equipe não participa do {campeonato} \n{ano} ou"
+                                f"já jogou na rodada.\nTente novamente!\033[m\n")
+                        if time_casa != time_fora:
                             break
+                        os.system('clear')
+                        print(f'\033[31mERRO: {time_casa} x {time_fora}\033[m')
+                        print(
+                            f"\033[31mSão a mesma equipe.\nTente novamente!\033[m\n")
                     adia = False
                     recupera = False
                     saia = False
@@ -326,14 +342,8 @@ def dados(equipes_participantes, campeonato, caminho_rodada, caminho_partidas, q
                             print("\033[31mOpção invalida.\nTente novamente!\033[m")
                 except Exception as e:
                     print(f'\033[31mHouve o seguinte erro: {e}\033[m')
-                if (time_casa in equipes_participantes and time_fora in equipes_participantes) and \
-                        (time_casa not in jogados and time_fora not in jogados) and time_casa != time_fora:
+                else:
                     break
-                os.system('clear')
-                print(f'\033[31mERRO: {time_casa} x {time_fora}\033[m')
-                print(
-                    f"\033[31mUma das equipes (ou as duas) não participa(m) do {campeonato} \n{ano}, "
-                    f"já jogaram na rodada ou são a mesma equipe.\nTente novamente!\033[m\n")
 
             if adia:  # Sai das opções da partida e volta ao menu anterior
                 with open(campeonato + "/adiado.txt", 'a') as a:
@@ -796,3 +806,38 @@ def jogos_realizados(campeonato, rodada, r, p):
                 break
             else:
                 pass
+
+
+def show_jogos(campeonato, equipes, atual_rodada, partida):
+    """
+    Mostra os jogos realizados por uma equipe no campeonato
+    :param campeonato: campeonato que a equipe participa
+    :param equipes: euipes participantes do campeonato
+    :param atual_rodada: atual rodada do campeonato
+    :param partida: Atual partida da rodada do campeonato
+    :return: jogos realizados por uma equipe
+    """
+    while True:
+        conn = sqlite3.connect(campeonato + '/jogos_realizados.db')
+        cursor = conn.cursor()
+        while True:
+            equipe = input('Informe o nome da equipe que deseja mostrar os jogos: ').strip().title()
+            if equipe in equipes:
+                break
+            else:
+                print(f'\033[31m{equipe} não participa do {campeonato}\033[m')
+        print()
+        print(f'JOGOS DO {equipe.upper()} NO CAMPEONATO'.center(50))
+        print('*' * 50)
+        for rodada in range(1, atual_rodada if partida <= 1 else atual_rodada+1):
+            cursor.execute(f'select * from Rodada{str(rodada)}')
+            r = cursor.fetchall()
+            for partidas in r:
+                if partidas[1] == equipe or partidas[5] == equipe:
+                    print(f'{rodada}ª Rodada - ', *partidas[1:])
+        print('*' * 50)
+        print('|* - Partida adiada |')
+        print('*' * 21)
+        sair = input('Tecle ENTER para voltar')
+        if sair == '':
+            break

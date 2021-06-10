@@ -2,6 +2,10 @@
 Adiciona qualquer campeonato de futebol em pontos corridos, você pode atualizar a tabela e jogos realizaos apenas adicionando o campeonato e adicionando o resultado de cada partida em cada rodada.
 
 # changelog
+Versão 0.3 10/06/2021
+* Melhoramento no tratamento de erros de digitação dos times;
+* Adicionado visualização de todos os jogos de uma equipe no campeonato;
+
 Versão 0.2 31/05/2021
 * Corrigido vários pequenos bugs de apresentação;
 * Adicionado campeonatos pré-configurados em adic menu;

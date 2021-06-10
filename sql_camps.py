@@ -78,8 +78,9 @@ while True:
                 opcao = input("[1] - Mostrar tabela\n"
                               "[2] - Adicionar/complementar/recuperar rodada/partida\n"
                               "[3] - Mostrar equipes participantes\n"
-                              "[4] - Mostrar jogos realizados em uma rodada\n"
-                              "[5] - Sair\n"
+                              f"[4] - Mostrar jogos realizados em uma rodada do {campeonato}\n"
+                              f"[5] - Mostrar todos os jogos de uma equipe no {campeonato}\n"
+                              "[6] - Sair\n"
                               "Sua opção: ").strip()
                 if opcao == '1':   # Mostrar tabela
                     while True:
@@ -143,7 +144,21 @@ while True:
                             else:
                                 print('\033[31mEsta rodada não existe!\033[m')
                     jogos_realizados(campeonato, rodada, r, p) if r != 0 else ''
-                elif opcao == "5":   # Voltar ao menu inicial
+                elif opcao == '5':
+                    os.system('clear')
+                    if os.path.isfile(caminho_rodadas):
+                        with open(caminho_rodadas) as a:
+                            atual_rodada = int(a.read())
+                    else:
+                        atual_rodada = 1
+                    if os.path.isfile(caminho_partidas):
+                        with open(caminho_partidas) as a:
+                            partida = int(a.read())
+                    else:
+                        partida = 0
+                    show_jogos(campeonato, equipes, atual_rodada, partida)
+
+                elif opcao == "6":   # Voltar ao menu inicial
                     os.system('clear')
                     print('Voltando ao menu inicial...')
                     sleep(1)
