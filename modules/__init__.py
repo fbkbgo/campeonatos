@@ -1,19 +1,5 @@
 """
 Funções uteis para o correto funcionamento dos campeonatos.
-
-Name: Modules
-
-Language: pt_BR.utf-8
-
-OS: Ubuntu 20.04
-
-IDE: Pycharm Community 2020.3 and Geany
-
-Python Version: 3.8
-
-Date: May 29 2021
-
-Author: Fabio Santos
  """
 import os
 import sqlite3
