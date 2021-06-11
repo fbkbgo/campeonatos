@@ -265,35 +265,35 @@ def dados(equipes_participantes, campeonato, caminho_rodada, caminho_partidas, q
                       'momento.\033[m')
                 try:  # Tratando os inputs do jogo
                     while True:
-                        try:
-                            time_casa = input('Time mandante: ').title().strip()
-                        except Exception as erro:
-                            print(f'Algo ocorreu de errado: {erro}')
-                        else:
-                            if time_casa in equipes_participantes  and time_casa not in jogados:
-                                break
-                            print(f'\033[31mERRO: {time_casa}\033[m')
-                            print(
-                                f"\033[31mA equipe não participa do {campeonato} \n{ano} ou"
-                                f"já jogou na rodada.\nTente novamente!\033[m\n")
-                    while True:
-                        try:
-                            time_fora = input('Time visitante: ').title().strip()
-                        except Exception as erro:
-                            print(f'Algo ocorreu de errado: {erro}')
-                        else:
-                            if time_fora in equipes_participantes and time_fora not in jogados:
-                                break
-                            print(f'\033[31mERRO: {time_fora}\033[m')
-                            print(
-                                f"\033[31mA equipe não participa do {campeonato} \n{ano} ou"
-                                f"já jogou na rodada.\nTente novamente!\033[m\n")
+                        while True:
+                            try:
+                                time_casa = input('Time mandante: ').title().strip()
+                            except Exception as erro:
+                                print(f'Algo ocorreu de errado: {erro}')
+                            else:
+                                if time_casa in equipes_participantes  and time_casa not in jogados:
+                                    break
+                                print(f'\033[31mERRO: {time_casa}\033[m')
+                                print(
+                                    f"\033[31mA equipe não participa do {campeonato} \n{ano} ou"
+                                    f"já jogou na rodada.\nTente novamente!\033[m\n")
+                        while True:
+                            try:
+                                time_fora = input('Time visitante: ').title().strip()
+                            except Exception as erro:
+                                print(f'Algo ocorreu de errado: {erro}')
+                            else:
+                                if time_fora in equipes_participantes and time_fora not in jogados:
+                                    break
+                                print(f'\033[31mERRO: {time_fora}\033[m')
+                                print(
+                                    f"\033[31mA equipe não participa do {campeonato} \n{ano} ou"
+                                    f"já jogou na rodada.\nTente novamente!\033[m\n")
                         if time_casa != time_fora:
                             break
                         os.system('clear')
                         print(f'\033[31mERRO: {time_casa} x {time_fora}\033[m')
-                        print(
-                            f"\033[31mSão a mesma equipe.\nTente novamente!\033[m\n")
+                        print(f"\033[31mSão a mesma equipe.\nTente novamente!\033[m\n")
                     adia = False
                     recupera = False
                     saia = False
